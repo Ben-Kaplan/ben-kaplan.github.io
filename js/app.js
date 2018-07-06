@@ -51,7 +51,7 @@ let blockNumber = 1;
 class Block {
     constructor(type) {
         let randomXCoordinate = Math.floor(Math.random() * 12);
-        this.xCoordinate = randomXCoordinate;
+        this.xCoordinate = 0;
         this.yCoordinate = 12;
         this.type = type;
         this.blockNumber = blockNumber;
@@ -61,13 +61,25 @@ class Block {
     }
 
     renderBlock() {
-        if ($(`.game-square-${this.xCoordinate}-12`).hasClass("stone") || $(`.game-square-${this.xCoordinate}-12`).hasClass("gold")) {
-            console.log("cannot make block")
-        } else {
-        $(`.game-square-${this.xCoordinate}-12`).addClass(this.type);
-        $(`.game-square-${this.xCoordinate}-12`).attr("block", this.blockNumber);
-        this.dropBlock();
+        // if ($(`.game-square-${this.xCoordinate}-12`).hasClass("stone") || $(`.game-square-${this.xCoordinate}-12`).hasClass("gold")) {
+        //     console.log("cannot make block")
+        // } else {
+        // $(`.game-square-${this.xCoordinate}-12`).addClass(this.type);
+        // $(`.game-square-${this.xCoordinate}-12`).attr("block", this.blockNumber);
+        // this.dropBlock();
             
+        // }
+    let randNums = [];
+    while (randNums.length < 2) {
+        let randomNumber = Math.floor(Math.random() * 12);
+            if(randNums.includes(randomNumber) == false) {
+            randNums.push(randomNumber);
+            console.log(randNums);
+        }
+    }
+    for (let i = 0; i < randNums.length; i++) {
+        this.xCoordinate = randNums[i];
+        $(`.game-square-${this.xCoordinate}-12`).addClass(this.type);
         }
     }
     dropBlock() {
