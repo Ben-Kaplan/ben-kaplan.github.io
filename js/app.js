@@ -49,9 +49,8 @@ const game = {
 const blocks = [];
 let blockNumber = 1;
 class Block {
-    constructor(type) {
-        let randomXCoordinate = Math.floor(Math.random() * 12);
-        this.xCoordinate = 0;
+    constructor(type, x) {
+        this.xCoordinate = x;
         this.yCoordinate = 12;
         this.type = type;
         this.blockNumber = blockNumber;
@@ -61,25 +60,13 @@ class Block {
     }
 
     renderBlock() {
-        // if ($(`.game-square-${this.xCoordinate}-12`).hasClass("stone") || $(`.game-square-${this.xCoordinate}-12`).hasClass("gold")) {
-        //     console.log("cannot make block")
-        // } else {
-        // $(`.game-square-${this.xCoordinate}-12`).addClass(this.type);
-        // $(`.game-square-${this.xCoordinate}-12`).attr("block", this.blockNumber);
-        // this.dropBlock();
-            
-        // }
-    let randNums = [];
-    while (randNums.length < 2) {
-        let randomNumber = Math.floor(Math.random() * 12);
-            if(randNums.includes(randomNumber) == false) {
-            randNums.push(randomNumber);
-            console.log(randNums);
-        }
-    }
-    for (let i = 0; i < randNums.length; i++) {
-        this.xCoordinate = randNums[i];
+        if ($(`.game-square-${this.xCoordinate}-12`).hasClass("stone") || $(`.game-square-${this.xCoordinate}-12`).hasClass("gold")) {
+            console.log("cannot make block")
+        } else {
         $(`.game-square-${this.xCoordinate}-12`).addClass(this.type);
+        $(`.game-square-${this.xCoordinate}-12`).attr("block", this.blockNumber);
+        this.dropBlock();
+            
         }
     }
     dropBlock() {
@@ -294,10 +281,18 @@ $(document).on("keydown", (e) => {
 });
 
 const blockInterval = () => {
+    let randNums = [];
+    while (randNums.length < 2) {
+        let randomNumber = Math.floor(Math.random() * 12);
+            if(randNums.includes(randomNumber) == false) {
+            randNums.push(randomNumber);
+            console.log(randNums);
+        }
+    }
     game.blocksMove = setInterval(() => {
         guy.levelUp();
-        const gold = new Block("gold");
-        const stone = new Block("stone");
+        const gold = new Block("gold", randNums[0]);
+        const stone = new Block("stone", randNums[1]);
         gold.renderBlock();
         stone.renderBlock();
     },4000)
