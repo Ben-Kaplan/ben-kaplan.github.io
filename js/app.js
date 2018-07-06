@@ -236,7 +236,7 @@ const guy = {
         if (this.points === 10) {
             game.level++;
             $("#game-level").text(`Level: ${game.level}`);
-            game.blockSpeed -= 100;
+            game.blockSpeed -= 200;
             game.moleSpawn /= 2;
              this.points = 0;
             $("#player-score").text(`Player Score: ${this.points}`);
